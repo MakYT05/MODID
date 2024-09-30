@@ -16,5 +16,13 @@ public class RecipesMI implements IRecipeProvider {
                 .map('N', Items.NETHER_STAR)
                 .map('B', Items.BLAZE_ROD)
                 .register();
+
+        event.shaped()
+                .result(ItemsMI.ENDER_SWORD)
+                .shape(" N ", " E ", " B ")
+                .map('N', Items.NETHER_STAR)
+                .map('B', Items.ENDER_PEARL)
+                .map('B', Items.BLAZE_ROD)
+                .register();
     }
 }
