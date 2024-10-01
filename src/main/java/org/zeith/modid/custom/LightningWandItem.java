@@ -23,6 +23,8 @@ public class LightningWandItem extends Item {
                 Vec3 startPos = player.getEyePosition();
                 Vec3 lookVector = player.getLookAngle();
 
+                player.getCooldowns().addCooldown(this, 100);
+
                 LightningBoltProjectile projectile = new LightningBoltProjectile(serverLevel, player);
                 projectile.setPos(startPos.x, startPos.y, startPos.z);
                 projectile.shoot(lookVector.x, lookVector.y, lookVector.z, 1.5f, 0);

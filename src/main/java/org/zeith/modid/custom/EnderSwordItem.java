@@ -27,7 +27,7 @@ public class EnderSwordItem extends SwordItem
             Vec3 lookVec = player.getLookAngle().scale(5);
             Vec3 targetPos = player.position().add(lookVec);
 
-            player.getCooldowns().addCooldown(this, 20);
+            player.getCooldowns().addCooldown(this, 100);
             BlockPos targetBlockPos = new BlockPos((int) targetPos.x(), (int) targetPos.y(), (int) targetPos.z());
 
             if (!world.isEmptyBlock(targetBlockPos))
