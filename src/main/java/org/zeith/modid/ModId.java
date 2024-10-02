@@ -38,7 +38,5 @@ public class ModId
 		return new ResourceLocation(MOD_ID, path);
 	}
 
-	private void onClientSetup(FMLClientSetupEvent event) {
-		ModEntityRenderers.registerRenderers();
-	}
+	private void onClientSetup(FMLClientSetupEvent event) { ModEntityRenderers.registerRenderers(); }
 }
