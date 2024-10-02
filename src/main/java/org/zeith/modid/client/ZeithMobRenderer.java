@@ -9,7 +9,6 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import org.zeith.modid.ModId;
 import org.zeith.modid.custom.ZeithMob;
-import org.zeith.modid.custom.ZeithMobModel;
 ;
 
 public class ZeithMobRenderer extends MobRenderer<ZeithMob, ZeithMobModel> {
