@@ -1,14 +1,18 @@
 package org.zeith.modid;
 
+import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.loading.FMLEnvironment;
 import org.zeith.hammerlib.api.items.CreativeTab;
 import org.zeith.hammerlib.core.adapter.LanguageAdapter;
 import org.zeith.hammerlib.core.init.ItemsHL;
 import org.zeith.hammerlib.proxy.HLConstants;
 import org.zeith.modid.client.ModEntityRenderers;
+import org.zeith.modid.client.ZeithMobRenderer;
 import org.zeith.modid.init.EntitiesMI;
 import org.zeith.modid.init.ItemsMI;
 
@@ -38,5 +42,5 @@ public class ModId
 		return new ResourceLocation(MOD_ID, path);
 	}
 
-	private void onClientSetup(FMLClientSetupEvent event) { ModEntityRenderers.registerRenderers(); }
+	private void onClientSetup(FMLClientSetupEvent event) {ModEntityRenderers.registerRenderers();}
 }
