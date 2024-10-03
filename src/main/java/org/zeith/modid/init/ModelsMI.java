@@ -6,6 +6,6 @@ import org.zeith.hammerlib.annotations.SimplyRegister;
 
 @SimplyRegister
 public interface ModelsMI {
-    @RegistryName("zeith_mob_model")
+    @RegistryName("zeith_mob")
     IGeometryContainer ZEITH_MOB_MODEL = IGeometryContainer.createNoSuffix();
 }

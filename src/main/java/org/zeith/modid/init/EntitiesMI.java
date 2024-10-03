@@ -19,5 +19,7 @@ public interface EntitiesMI {
     @RegistryName("zeith_mob")
     EntityType<ZeithMob> ZEITH_MOB = EntityType.Builder.of(ZeithMob::new, MobCategory.MONSTER)
             .sized(0.6F, 1.95F)
+            .setTrackingRange(80)
+            .setUpdateInterval(1)
             .build("zeith_mob");
 }
