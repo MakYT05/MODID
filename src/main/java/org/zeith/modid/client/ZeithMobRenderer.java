@@ -1,37 +1,53 @@
 package org.zeith.modid.client;
 
+import com.mojang.blaze3d.MethodsReturnNonnullByDefault;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.client.model.geom.ModelLayerLocation;
-import net.minecraft.client.model.geom.ModelPart;
+import org.zeith.hammeranims.api.HammerAnimationsApi;
+import org.zeith.hammeranims.api.geometry.event.RefreshStaleModelsEvent;
+import org.zeith.hammeranims.api.geometry.model.IGeometricModel;
+import org.zeith.hammeranims.api.geometry.model.RenderData;
 import org.zeith.modid.custom.ZeithMob;
+import org.zeith.modid.init.ModelsMI;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
+@ParametersAreNonnullByDefault
+@MethodsReturnNonnullByDefault
 public class ZeithMobRenderer extends EntityRenderer<ZeithMob> {
-
-    private static final ModelLayerLocation MODEL_LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation("modid", "zeith_mob"), "main");
-    private static final ResourceLocation TEXTURE = new ResourceLocation("modid", "textures/entity/zeith_mob.png");
-    private final ModelPart model;
+    final ResourceLocation texture = new ResourceLocation("textures/entity/zeith_mob.png");
+    IGeometricModel ZeithMobModel;
+    final RenderData data;
 
     public ZeithMobRenderer(EntityRendererProvider.Context context) {
         super(context);
-        this.model = context.bakeLayer(MODEL_LAYER_LOCATION);
+        data = new RenderData();
+        HammerAnimationsApi.EVENT_BUS.addListener(this::refreshModel);
     }
 
     @Override
-    public ResourceLocation getTextureLocation(ZeithMob entity) {
-        return TEXTURE;
+    public ResourceLocation getTextureLocation(ZeithMob p_114482_) {
+        return texture;
     }
 
     @Override
-    public void render(ZeithMob entity, float entityYaw, float partialTicks, PoseStack matrixStack, MultiBufferSource buffer, int packedLight) {
-        matrixStack.pushPose();
-        matrixStack.translate(0.0D, 0.0D, 0.0D);
-        model.render(matrixStack, buffer.getBuffer(RenderType.entityCutout(getTextureLocation(entity))), packedLight, OverlayTexture.NO_OVERLAY);
-        matrixStack.popPose();
+    public void render(ZeithMob pEntity, float pEntityYaw, float pPartialTick, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight) {
+        ZeithMobModel.resetPose();
+        pPoseStack.pushPose();
+        pPoseStack.translate(0.5F, 0.01f, 0.5F);
+        pPoseStack.scale(1.15f, 1f, 1.25f);
+        ZeithMobModel.renderModel(data.apply(pPoseStack,pBuffer.getBuffer(RenderType.entitySolid(texture)),pPackedLight, OverlayTexture.NO_OVERLAY));
+
+        pPoseStack.popPose();
+    }
+
+    public void refreshModel(RefreshStaleModelsEvent e)
+    {
+        ZeithMobModel = ModelsMI.ZEITH_MOB_MODEL.createModel();
     }
 }

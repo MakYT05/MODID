@@ -162,19 +162,12 @@ repositories {
 dependencies {
     minecraft "net.neoforged:forge:${config.mc_version}-${config.forge_version}"
 
-    if (hasConfig("hl_version") && !config.hl_version.isEmpty()) {
-        implementation fg.deobf("org.zeith.hammerlib:HammerLib-${config.mc_version}:${config.hl_version}")
-    }
-	
-    if (hasConfig("hammeranims_version") && !config.hammeranims_version.isEmpty()) {
-        implementation fg.deobf("org.zeith.hammeranims:HammerAnimations-${config.mc_version}:${config.hammeranims_version}")
-    }
+    implementation fg.deobf("org.zeith.hammerlib:HammerLib-${config.mc_version}:${config.hl_version}")
+    implementation fg.deobf("org.zeith.hammeranims:HammerAnimations-1.20.1:20.1.16")
 
-    if (hasConfig("jei_version") && !config.jei_version.isEmpty()) {
-        compileOnly fg.deobf("mezz.jei:jei-${config.mc_version}-common-api:${config.jei_version}")
-        compileOnly fg.deobf("mezz.jei:jei-${config.mc_version}-forge-api:${config.jei_version}")
-        runtimeOnly fg.deobf("mezz.jei:jei-${config.mc_version}-forge:${config.jei_version}")
-    }
+    compileOnly fg.deobf("mezz.jei:jei-${config.mc_version}-common-api:${config.jei_version}")
+    compileOnly fg.deobf("mezz.jei:jei-${config.mc_version}-forge-api:${config.jei_version}")
+    runtimeOnly fg.deobf("mezz.jei:jei-${config.mc_version}-forge:${config.jei_version}")
 
     annotationProcessor("org.spongepowered:mixin:0.8.5:processor")
 

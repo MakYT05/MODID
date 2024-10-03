@@ -15,6 +15,7 @@ import org.zeith.modid.client.ModEntityRenderers;
 import org.zeith.modid.client.ZeithMobRenderer;
 import org.zeith.modid.init.EntitiesMI;
 import org.zeith.modid.init.ItemsMI;
+import org.zeith.modid.init.ModelsMI;
 
 @Mod(ModId.MOD_ID)
 public class ModId
@@ -33,6 +34,7 @@ public class ModId
 		LanguageAdapter.registerMod(MOD_ID);
 		ItemsMI.class.getCanonicalName();
 		EntitiesMI.class.getCanonicalName();
+		ModelsMI.class.getCanonicalName();
 
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::onClientSetup);
 	}
