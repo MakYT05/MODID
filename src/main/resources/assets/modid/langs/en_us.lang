@@ -3,6 +3,4 @@ item.modid.fire_axe=Fire Axe
 item.modid.lightning_wand=Lightning Wand
 item.modid.zeith_egg=Zeith Egg
 
-entity.modid.lightning_ball=Lightning Ball
-
 creative_tab.modid.root=Mod Name

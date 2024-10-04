@@ -2,9 +2,10 @@ package org.zeith.modid;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
+import net.minecraftforge.eventbus.api.Event;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.zeith.hammerlib.api.items.CreativeTab;
 import org.zeith.hammerlib.core.adapter.LanguageAdapter;
 import org.zeith.hammerlib.core.init.ItemsHL;
@@ -12,8 +13,7 @@ import org.zeith.hammerlib.proxy.HLConstants;
 import org.zeith.modid.client.ModEntityRenderers;
 import org.zeith.modid.custom.ZeithMob;
 import org.zeith.modid.init.EntitiesMI;
-import org.zeith.modid.init.ItemsMI;
-import org.zeith.modid.init.ModelsMI;
+import org.zeith.modid.init.RecipesMI;
 
 @Mod(ModId.MOD_ID)
 public class ModId
@@ -27,26 +27,21 @@ public class ModId
 					.withTabsBefore(HLConstants.HL_TAB.id())
 	);
 
-	public ModId()
+	public ModId(IEventBus bus)
 	{
 		LanguageAdapter.registerMod(MOD_ID);
-		ItemsMI.class.getCanonicalName();
-		EntitiesMI.class.getCanonicalName();
-		ModelsMI.class.getCanonicalName();
 
-		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::onClientSetup);
+		bus.addListener(ModId::clientSetup);
+		bus.addListener(ModId::entityAttributes);
 	}
+
+	@SubscribeEvent
+	public static void entityAttributes(EntityAttributeCreationEvent event) { event.put(EntitiesMI.ZEITH_MOB, ZeithMob.createAttributes().build()); }
+
+	private static void clientSetup(Event event) { ModEntityRenderers.registerRenderers(); }
 
 	public static ResourceLocation id(String path)
 	{
 		return new ResourceLocation(MOD_ID, path);
-	}
-
-	private void onClientSetup(FMLClientSetupEvent event) {
-		ModEntityRenderers.registerRenderers();
-	}
-
-	private void onEntityAttributeCreation(EntityAttributeCreationEvent event) {
-		ZeithMob.registerAttributes(event);
 	}
 }
