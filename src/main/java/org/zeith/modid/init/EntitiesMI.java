@@ -18,6 +18,6 @@ public interface EntitiesMI {
 
     @RegistryName("zeith_mob")
     EntityType<ZeithMob> ZEITH_MOB = EntityType.Builder.of(ZeithMob::new, MobCategory.MONSTER)
-            .sized(0.6F, 1.95F)
+            .sized(1F, 1.5F)
             .build("zeith_mob");
 }

@@ -20,7 +20,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 public class ZeithMobRenderer extends EntityRenderer<ZeithMob> {
-    final ResourceLocation texture = new ResourceLocation("textures/entity/zeith_mob.png");
+    final ResourceLocation texture = new ResourceLocation( "modid", "textures/entity/zeith_mob.png");
     IGeometricModel ZeithMobModel;
     final RenderData data;
 
@@ -46,8 +46,5 @@ public class ZeithMobRenderer extends EntityRenderer<ZeithMob> {
         pPoseStack.popPose();
     }
 
-    public void refreshModel(RefreshStaleModelsEvent e)
-    {
-        ZeithMobModel = ModelsMI.ZEITH_MOB_MODEL.createModel();
-    }
+    public void refreshModel(RefreshStaleModelsEvent e) { ZeithMobModel = ModelsMI.ZEITH_MOB_MODEL.createModel(); }
 }
