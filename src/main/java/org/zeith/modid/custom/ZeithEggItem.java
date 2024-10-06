@@ -1,5 +1,7 @@
 package org.zeith.modid.custom;
 
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
@@ -29,9 +31,22 @@ public class ZeithEggItem extends Item {
 
             type.spawn(serverWorld, null, player, clickedPos, MobSpawnType.SPAWN_EGG, true, false);
 
+            if (player != null)
+            {
+                applyGoldenAppleEffects(player);
+            }
+
             context.getItemInHand().hurtAndBreak(1, player, (p) -> p.broadcastBreakEvent(context.getHand()));
         }
 
         return InteractionResult.sidedSuccess(world.isClientSide());
+    }
+
+    private void applyGoldenAppleEffects(Player player)
+    {
+        player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, Integer.MAX_VALUE, 1, false, false));
+        player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 0, false, false));
+        player.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, Integer.MAX_VALUE, 0, false, false));
+        player.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, Integer.MAX_VALUE, 3, false, false));
     }
 }

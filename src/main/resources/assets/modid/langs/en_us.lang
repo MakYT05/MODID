@@ -1,6 +1,8 @@
 item.modid.ender_sword=Ender Sword
 item.modid.fire_axe=Fire Axe
 item.modid.lightning_wand=Lightning Wand
+item.modid.tnt_bow=Tnt Bow
+item.modid.dark_brade=Dark Brade
 item.modid.zeith_egg=Zeith Egg
 
 creative_tab.modid.root=Mod Name
