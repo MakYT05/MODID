@@ -1,5 +1,5 @@
 # Mod Info
-mod_version=20.1.154
+mod_version=20.1.157
 build_candidate=false
 
 # Mod dependencies (jei is not a requirement, but HammerLib is)
@@ -9,10 +9,10 @@ jei_version=15.2.0.22
 
 # Persistent mod info
 mod_id=modid
-archive_name=ModId
-mod_name=Mod Name
+archive_name=astralix
+mod_name=ASTRALIX
 mod_description=Example mod description.\nNewline characters can be used and will be replaced properly.
-mod_authors=Zeitheron
+mod_authors=MAK
 mod_license=All Rights Reserved
 mod_credits=None
 issue_tracker_url=https://github.com/dragon-forge/HammerLib/issues

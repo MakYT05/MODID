@@ -12,7 +12,7 @@ import org.zeith.hammeranims.api.HammerAnimationsApi;
 import org.zeith.hammeranims.api.geometry.event.RefreshStaleModelsEvent;
 import org.zeith.hammeranims.api.geometry.model.IGeometricModel;
 import org.zeith.hammeranims.api.geometry.model.RenderData;
-import org.zeith.modid.custom.ZeithMob;
+import org.zeith.modid.custom.entyties.ZeithMob;
 import org.zeith.modid.init.ModelsMI;
 
 import javax.annotation.ParametersAreNonnullByDefault;

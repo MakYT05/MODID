@@ -11,27 +11,27 @@ import org.zeith.hammerlib.core.adapter.LanguageAdapter;
 import org.zeith.hammerlib.core.init.ItemsHL;
 import org.zeith.hammerlib.proxy.HLConstants;
 import org.zeith.modid.client.ModEntityRenderers;
-import org.zeith.modid.custom.ZeithMob;
+import org.zeith.modid.custom.entyties.ZeithMob;
 
-@Mod(ModId.MOD_ID)
-public class ModId
+@Mod(Astralix.MOD_ID)
+public class Astralix
 {
 	public static final String MOD_ID = "modid";
 
 	@CreativeTab.RegisterTab
-	public static final CreativeTab MOD_TAB = new CreativeTab(id("root"),
+	public static final CreativeTab MOD_TAB = new CreativeTab(id("astralix"),
 			builder -> builder
 					.icon(() -> ItemsHL.COPPER_GEAR.getDefaultInstance())
 					.withTabsBefore(HLConstants.HL_TAB.id())
 	);
 
-	public ModId()
+	public Astralix()
 	{
 		IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
 
 		LanguageAdapter.registerMod(MOD_ID);
 
-		bus.addListener(ModId::clientSetup);
+		bus.addListener(Astralix::clientSetup);
 		bus.addListener(ZeithMob::entityAttributes);
 	}
 

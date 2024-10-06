@@ -1,4 +1,4 @@
-package org.zeith.modid.custom;
+package org.zeith.modid.custom.items;
 
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -8,6 +8,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.phys.Vec3;
+import org.zeith.modid.custom.entyties.LightningBoltProjectile;
 
 public class LightningWandItem extends Item {
     public LightningWandItem(Properties properties) {

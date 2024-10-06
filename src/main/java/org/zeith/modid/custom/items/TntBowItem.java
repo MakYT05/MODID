@@ -1,4 +1,4 @@
-package org.zeith.modid.custom;
+package org.zeith.modid.custom.items;
 
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;

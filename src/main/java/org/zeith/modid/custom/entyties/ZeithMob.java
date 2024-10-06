@@ -1,4 +1,4 @@
-package org.zeith.modid.custom;
+package org.zeith.modid.custom.entyties;
 
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;

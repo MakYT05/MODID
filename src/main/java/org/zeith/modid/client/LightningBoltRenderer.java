@@ -10,7 +10,7 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import org.joml.Matrix3f;
 import org.joml.Matrix4f;
-import org.zeith.modid.custom.LightningBoltProjectile;
+import org.zeith.modid.custom.entyties.LightningBoltProjectile;
 
 public class LightningBoltRenderer extends EntityRenderer<LightningBoltProjectile> {
 

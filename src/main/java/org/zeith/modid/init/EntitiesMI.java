@@ -4,8 +4,8 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import org.zeith.hammerlib.annotations.RegistryName;
 import org.zeith.hammerlib.annotations.SimplyRegister;
-import org.zeith.modid.custom.LightningBoltProjectile;
-import org.zeith.modid.custom.ZeithMob;
+import org.zeith.modid.custom.entyties.LightningBoltProjectile;
+import org.zeith.modid.custom.entyties.ZeithMob;
 
 @SimplyRegister
 public interface EntitiesMI {
