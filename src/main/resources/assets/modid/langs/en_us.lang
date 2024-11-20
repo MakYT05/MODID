@@ -2,4 +2,6 @@ item.modid.fire_axe=Fire Axe
 item.modid.lightning_wand=Lightning Wand
 item.modid.zeith_egg=Zeith Egg
 
+block.modid.fe_block=FE Block
+
 creative_tab.modid.astralix=ASTRALIX

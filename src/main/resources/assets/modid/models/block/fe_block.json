@@ -1,0 +1,11 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "modid:block/fe_block_top",
+    "up": "modid:block/fe_block_top",
+    "north": "modid:block/fe_block_top",
+    "south": "modid:block/fe_block_top",
+    "west": "modid:block/fe_block_top",
+    "east": "modid:block/fe_block_top"
+  }
+}
