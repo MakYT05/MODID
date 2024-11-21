@@ -7,14 +7,17 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 
-public class FeBlock extends Block {
+import javax.annotation.Nullable;
+
+public class FeBlock extends BaseEntityBlock {
+
     public FeBlock() {
         super(BlockBehaviour.Properties.of()
                 .strength(3.0F, 10.0F)
@@ -38,9 +41,14 @@ public class FeBlock extends Block {
 
             if (blockEntity instanceof FeBlockEntity feBlockEntity) {
                 int energyStored = feBlockEntity.getEnergyStored();
-                player.displayClientMessage(Component.literal("Энергия в блоке: " + energyStored + " FE"), true);
+
+                player.displayClientMessage(Component.literal("энергия в блоке: " + energyStored + " FE"), true);
             }
         }
         return InteractionResult.SUCCESS;
     }
+
+    @Nullable
+    @Override
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) { return new FeBlockEntity(pos, state); }
 }
