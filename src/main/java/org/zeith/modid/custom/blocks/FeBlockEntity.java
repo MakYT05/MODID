@@ -14,6 +14,8 @@ import net.minecraftforge.energy.IEnergyStorage;
 import org.zeith.hammerlib.tiles.TileSyncableTickable;
 import org.zeith.modid.init.TileEntitiesMI;
 
+import java.util.List;
+
 public class FeBlockEntity extends TileSyncableTickable implements IEnergyStorage {
     private static final int MAX_FE = 16000;
     private int storedEnergy = 0;
@@ -63,16 +65,48 @@ public class FeBlockEntity extends TileSyncableTickable implements IEnergyStorag
     public void updateEnergyFromLightning(Level level) {
         if (level == null || level.isClientSide) return;
 
-        level.getEntitiesOfClass(LightningBolt.class, new AABB(worldPosition).inflate(8))
-                .forEach(bolt -> {
-                    double distance = Math.sqrt(bolt.distanceToSqr(worldPosition.getX(), worldPosition.getY(), worldPosition.getZ()));
+        List<LightningBolt> bolts = level.getEntitiesOfClass(LightningBolt.class, new AABB(worldPosition).inflate(8));
 
-                    if (distance <= 8) {
-                        int generatedEnergy = (int) (MAX_FE * (1.0 - (distance / 8.0)));
-                        storedEnergy += generatedEnergy;
-                        storedEnergy = Math.min(storedEnergy, MAX_FE);
+        for (LightningBolt bolt : bolts) {
+            if (bolt.tickCount > 1 || bolt.getTags().contains("processed")) continue;
+
+            BlockPos closestBlock = null;
+            double closestDistance = Double.MAX_VALUE;
+
+            for (int x = -8; x <= 8; x++) {
+                for (int y = -8; y <= 8; y++) {
+                    for (int z = -8; z <= 8; z++) {
+                        BlockPos pos = worldPosition.offset(x, y, z);
+                        BlockEntity blockEntity = level.getBlockEntity(pos);
+
+                        if (blockEntity instanceof FeBlockEntity) {
+                            double distance = worldPosition.distSqr(pos);
+
+                            if (distance < closestDistance) {
+                                closestDistance = distance;
+                                closestBlock = pos;
+                            }
+                        }
                     }
-                });
+                }
+            }
+
+            if (closestBlock != null) {
+                BlockEntity blockEntity = level.getBlockEntity(closestBlock);
+
+                if (blockEntity instanceof FeBlockEntity feBlockEntity) {
+                    double distance = Math.sqrt(bolt.distanceToSqr(worldPosition.getX(), worldPosition.getY(), worldPosition.getZ()));
+                    int generatedEnergy = (int) (MAX_FE * (1.0 - (distance / 8.0)));
+
+                    feBlockEntity.storedEnergy += generatedEnergy;
+                    feBlockEntity.storedEnergy = Math.min(feBlockEntity.storedEnergy, MAX_FE);
+
+                    bolt.addTag("processed");
+
+                    break;
+                }
+            }
+        }
     }
 
     public void transferEnergy() {
