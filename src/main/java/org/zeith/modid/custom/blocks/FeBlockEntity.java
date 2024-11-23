@@ -91,7 +91,7 @@ public class FeBlockEntity extends TileSyncableTickable implements IEnergyStorag
         }
     }
 
-    public void tick() {
+    public void serverTick() {
         if (level != null && !level.isClientSide) {
             updateEnergyFromLightning(level);
             transferEnergy();
