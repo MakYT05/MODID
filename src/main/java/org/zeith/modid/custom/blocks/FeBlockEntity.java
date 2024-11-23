@@ -14,13 +14,9 @@ import net.minecraftforge.energy.IEnergyStorage;
 import org.zeith.hammerlib.tiles.TileSyncableTickable;
 import org.zeith.modid.init.TileEntitiesMI;
 
-import java.util.HashSet;
-import java.util.Set;
-
 public class FeBlockEntity extends TileSyncableTickable implements IEnergyStorage {
     private static final int MAX_FE = 16000;
     private int storedEnergy = 0;
-    private Set<LightningBolt> processedBolts = new HashSet<>();
 
     public FeBlockEntity(BlockPos pos, BlockState state) { super(TileEntitiesMI.FE_BLOCK_ENTITY, pos, state); }
 
@@ -69,17 +65,12 @@ public class FeBlockEntity extends TileSyncableTickable implements IEnergyStorag
 
         level.getEntitiesOfClass(LightningBolt.class, new AABB(worldPosition).inflate(8))
                 .forEach(bolt -> {
-                    if (!processedBolts.contains(bolt)) {
-                        processedBolts.add(bolt);
+                    double distance = Math.sqrt(bolt.distanceToSqr(worldPosition.getX(), worldPosition.getY(), worldPosition.getZ()));
 
-                        double distance = Math.sqrt(bolt.distanceToSqr(worldPosition.getX(), worldPosition.getY(), worldPosition.getZ()));
-
-                        if (distance <= 8) {
-                            int generatedEnergy = (int) (MAX_FE * (1.0 - (distance / 8)));
-
-                            storedEnergy += generatedEnergy;
-                            storedEnergy = Math.min(storedEnergy, MAX_FE);
-                        }
+                    if (distance <= 8) {
+                        int generatedEnergy = (int) (MAX_FE * (1.0 - (distance / 8.0)));
+                        storedEnergy += generatedEnergy;
+                        storedEnergy = Math.min(storedEnergy, MAX_FE);
                     }
                 });
     }
@@ -94,7 +85,6 @@ public class FeBlockEntity extends TileSyncableTickable implements IEnergyStorag
                 capability.ifPresent(energyStorage -> {
                     int energyToSend = Math.min(storedEnergy, 1000);
                     int energyReceived = energyStorage.receiveEnergy(energyToSend, false);
-
                     storedEnergy -= energyReceived;
                 });
             }
