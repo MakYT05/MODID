@@ -70,39 +70,18 @@ public class FeBlockEntity extends TileSyncableTickable implements IEnergyStorag
         for (LightningBolt bolt : bolts) {
             if (bolt.tickCount > 1 || bolt.getTags().contains("processed")) continue;
 
-            BlockPos closestBlock = null;
-            double closestDistance = Double.MAX_VALUE;
+            BlockPos boltPos = bolt.blockPosition();
 
-            for (int x = -8; x <= 8; x++) {
-                for (int y = -8; y <= 8; y++) {
-                    for (int z = -8; z <= 8; z++) {
-                        BlockPos pos = worldPosition.offset(x, y, z);
-                        BlockEntity blockEntity = level.getBlockEntity(pos);
-
-                        if (blockEntity instanceof FeBlockEntity) {
-                            double distance = worldPosition.distSqr(pos);
-
-                            if (distance < closestDistance) {
-                                closestDistance = distance;
-                                closestBlock = pos;
-                            }
-                        }
-                    }
-                }
-            }
-
-            if (closestBlock != null) {
-                BlockEntity blockEntity = level.getBlockEntity(closestBlock);
+            for (BlockPos pos : BlockPos.betweenClosed(boltPos.offset(-8, -8, -8), boltPos.offset(8, 8, 8))) {
+                BlockEntity blockEntity = level.getBlockEntity(pos);
 
                 if (blockEntity instanceof FeBlockEntity feBlockEntity) {
-                    double distance = Math.sqrt(bolt.distanceToSqr(worldPosition.getX(), worldPosition.getY(), worldPosition.getZ()));
+                    double distance = Math.sqrt(boltPos.distSqr(pos));
                     int generatedEnergy = (int) (MAX_FE * (1.0 - (distance / 8.0)));
 
-                    feBlockEntity.storedEnergy += generatedEnergy;
-                    feBlockEntity.storedEnergy = Math.min(feBlockEntity.storedEnergy, MAX_FE);
+                    feBlockEntity.storedEnergy = Math.min(feBlockEntity.storedEnergy + generatedEnergy, MAX_FE);
 
                     bolt.addTag("processed");
-
                     break;
                 }
             }
